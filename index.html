@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Sample Form</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Sample Form</h1>
+
+  <form id="sampleForm" action="process_form.php" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    function validateEmail(email) {
+      if (!email) {
+        alert('Email is required');
+        return false;
+      } else {
+        if (email.indexOf('@') === -1 || email.indexOf('.') === -1 || email.length < 5) {
+          alert('Invalid email format');
+          return false;
+        }
+      }
+
+      if (email.indexOf('@') !== -1) {
+        if (email.indexOf('@') < 2) {
+          alert('Username part is too short');
+          return false;
+        }
+      }
+
+      var emailPart = email.split('@');
+      var domain = emailPart[1];
+      if (domain.indexOf('.') === -1) {
+        alert('Invalid domain');
+        return false;
+      }
+
+      if (domain.indexOf('.') < 2) {
+        alert('Domain part is too short');
+        return false;
+      }
+
+      return true;
+    }
+
+    var form = document.getElementById('sampleForm');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent the form from actually submitting
+
+      var emailInput = document.getElementById('email');
+      var email = emailInput.value;
+
+      if (validateEmail(email)) {
+        // If email is valid, you can submit the form here
+        // form.submit();
+       alert('Form submitted successfully.');
+      } else {
+          alert('Form validation failed. Please fix the issues.');
+      }
+    });
+  </script>
+</body>
+
+</html>
